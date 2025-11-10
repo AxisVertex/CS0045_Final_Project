@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "MinGW64",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/SFML-2.6.2/include",
+                "${workspaceFolder}/glew-2.1.0/include",
+                "${workspaceFolder}/mingw64/include"
+            ],
+            "compilerPath": "${workspaceFolder}/mingw64/bin/g++.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
+}

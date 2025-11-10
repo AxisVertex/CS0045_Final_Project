@@ -1,0 +1,52 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build (release)",
+            "type": "shell",
+            "command": "${workspaceFolder}/mingw64/bin/g++.exe",
+            "args": [
+                "main.cpp",
+                "-std=c++17",
+                "-I", "${workspaceFolder}/SFML-2.6.2/include",
+                "-I", "${workspaceFolder}/glew-2.1.0/include",
+                "-L", "${workspaceFolder}/SFML-2.6.2/lib",
+                "-L", "${workspaceFolder}/glew-2.1.0/lib/Release/x64",
+                "-o", "main-release.exe",
+                "-O2",
+                "-lsfml-graphics",
+                "-lsfml-window",
+                "-lsfml-system",
+                "-lglew32",
+                "-lopengl32"
+            ],
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "build (debug)",
+            "type": "shell",
+            "command": "${workspaceFolder}/mingw64/bin/g++.exe",
+            "args": [
+                "${workspaceFolder}/src/*.cpp",
+                "-std=c++17",
+                "-I", "${workspaceFolder}/SFML-2.6.2/include",
+                "-I", "${workspaceFolder}/glew-2.1.0/include",
+                "-L", "${workspaceFolder}/SFML-2.6.2/lib",
+                "-L", "${workspaceFolder}/glew-2.1.0/lib/Release/x64",
+                "-o", "main-debug.exe",
+                "-g",
+                "-lsfml-graphics-d",
+                "-lsfml-window-d",
+                "-lsfml-system-d",
+                "-lglew32",
+                "-lopengl32"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        }
+    ]
+}

@@ -1,0 +1,33 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run & Debug (Debug Build)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/main-debug.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerPath": "${workspaceFolder}/mingw64/bin/gdb.exe",
+            "preLaunchTask": "build (debug)"
+        },
+        {
+            "name": "Run (Release Build)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/main-release.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerPath": "${workspaceFolder}/mingw64/bin/gdb.exe",
+            "preLaunchTask": "build (release)"
+        }
+    ]
+}
