@@ -2,9 +2,11 @@
 
 #include "Scene.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp> // Added for sound
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <array> // Added for sound buffers
 
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -58,6 +60,10 @@ private:
     sf::RectangleShape m_subtitleBackground;
     sf::RectangleShape m_fadeRect;
     sf::Text m_creditsText; // For scrolling credits
+
+    // --- Sound Assets (NEW) ---
+    std::array<sf::SoundBuffer, 7> m_soundBuffers;
+    sf::Sound m_voiceLine;
 
     // --- Graphics ---
     sf::RectangleShape m_sky;

@@ -55,6 +55,15 @@ Scene7::Scene7(sf::RenderWindow& window) :
         std::cerr << "Could not load font 'arial.ttf'." << std::endl;
     }
 
+    // --- LOAD SOUNDS (NEW) ---
+    for (int i = 0; i < 7; ++i) {
+        std::string path = "Sounds/Scene7/" + std::to_string(i + 1) + ".wav";
+        if (!m_soundBuffers[i].loadFromFile(path)) {
+            std::cerr << "Could not load sound: " << path << std::endl;
+        }
+    }
+    // --- END NEW ---
+
     setupGraphics();
     m_partClock.restart();
 }
@@ -64,6 +73,7 @@ void Scene7::handleInput(sf::Event& event) {
     if (event.type == sf::Event::MouseButtonPressed) {
         if (event.mouseButton.button == sf::Mouse::Left) {
             std::cout << "Cutscene 7 skipped!" << std::endl;
+            m_voiceLine.stop(); // NEW: Stop sound on skip
             m_nextState = GameState::MainMenu; // Go back to menu
         }
     }
@@ -107,20 +117,26 @@ void Scene7::updateCutscene(sf::Time dt) {
         if (elapsedTime > 3.0f) {
             m_currentPart = CutscenePart::Dialogue1_Yaya;
             m_partClock.restart();
+            m_voiceLine.setBuffer(m_soundBuffers[0]); // NEW: Play sound 1 (1.wav)
+            m_voiceLine.play();
         }
         break;
     }
-    case CutscenePart::Dialogue1_Yaya: {
-        setSubtitle(L"YayaDub (smiling softly): “Alden… salamat ha. Akala ko tapos na ‘ko kay Arjo.”");
-        if (elapsedTime > 5.0f) {
+    case CutscenePart::Dialogue1_Yaya: { // Line 1 (7s)
+        setSubtitle(L"YayaDub: “Alden… salamat ha. Akala ko tapos na ‘ko kay Arjo.”");
+        if (elapsedTime > 7.0f) { // Updated from 5.0
+            m_voiceLine.stop(); // NEW
             m_currentPart = CutscenePart::Dialogue2_Alden;
             m_partClock.restart();
+            m_voiceLine.setBuffer(m_soundBuffers[1]); // NEW: Play sound 2 (2.wav)
+            m_voiceLine.play();
         }
         break;
     }
-    case CutscenePart::Dialogue2_Alden: {
-        setSubtitle(L"Alden (grinning): “Walang makakapigil sa pag-ibig ko—even si Arjo, pati Tumbang Preso pa yan!”");
-        if (elapsedTime > 5.0f) {
+    case CutscenePart::Dialogue2_Alden: { // Line 2 (9s)
+        setSubtitle(L"Alden: “Walang makakapigil sa pag-ibig ko—even si Arjo, pati Tumbang Preso pa yan!”");
+        if (elapsedTime > 9.0f) { // Updated from 5.0
+            m_voiceLine.stop(); // NEW
             m_currentPart = CutscenePart::Silence;
             m_partClock.restart();
         }
@@ -129,39 +145,51 @@ void Scene7::updateCutscene(sf::Time dt) {
     case CutscenePart::Silence: {
         setSubtitle(L"");
 
-        if (elapsedTime > 4.0f) {
+        if (elapsedTime > 4.0f) { // Kept 4.0s pause
             m_currentPart = CutscenePart::Dialogue3_Yaya;
             m_partClock.restart();
+            m_voiceLine.setBuffer(m_soundBuffers[2]); // NEW: Play sound 3 (3.wav)
+            m_voiceLine.play();
         }
         break;
     }
-    case CutscenePart::Dialogue3_Yaya: {
+    case CutscenePart::Dialogue3_Yaya: { // Line 3 (6s)
         setSubtitle(L"YayaDub: “Pero seryoso… ang dami mong dinaanan para lang sa ‘kin.”");
-        if (elapsedTime > 4.0f) {
+        if (elapsedTime > 6.0f) { // Updated from 4.0
+            m_voiceLine.stop(); // NEW
             m_currentPart = CutscenePart::Dialogue4_Alden;
             m_partClock.restart();
+            m_voiceLine.setBuffer(m_soundBuffers[3]); // NEW: Play sound 4 (4.wav)
+            m_voiceLine.play();
         }
         break;
     }
-    case CutscenePart::Dialogue4_Alden: {
+    case CutscenePart::Dialogue4_Alden: { // Line 4 (12s)
         setSubtitle(L"Alden: “Ganyan talaga kapag mahal mo. Parang laro — minsan napapagod, pero mas masaya kapag kasama ka sa dulo.”");
-        if (elapsedTime > 6.0f) {
+        if (elapsedTime > 12.0f) { // Updated from 6.0
+            m_voiceLine.stop(); // NEW
             m_currentPart = CutscenePart::ComedyEnding_Kid;
             m_partClock.restart();
+            m_voiceLine.setBuffer(m_soundBuffers[4]); // NEW: Play sound 5 (5.wav)
+            m_voiceLine.play();
         }
         break;
     }
-    case CutscenePart::ComedyEnding_Kid: {
+    case CutscenePart::ComedyEnding_Kid: { // Line 5 (4s)
         setSubtitle(L"Kid (from afar): “Kuya Alden! Rematch sa Sipa!”");
-        if (elapsedTime > 3.0f) {
+        if (elapsedTime > 4.0f) { // Updated from 3.0
+            m_voiceLine.stop(); // NEW
             m_currentPart = CutscenePart::ComedyEnding_Alden;
             m_partClock.restart();
+            m_voiceLine.setBuffer(m_soundBuffers[5]); // NEW: Play sound 6 (6.wav)
+            m_voiceLine.play();
         }
         break;
     }
-    case CutscenePart::ComedyEnding_Alden: {
+    case CutscenePart::ComedyEnding_Alden: { // Line 6 (4s)
         setSubtitle(L"Alden: “Next time na, bata! Love muna!”");
-        if (elapsedTime > 3.0f) {
+        if (elapsedTime > 4.0f) { // Updated from 3.0
+            m_voiceLine.stop(); // NEW
             m_currentPart = CutscenePart::FinalZoomOut; 
             m_partClock.restart();
         }
@@ -169,16 +197,26 @@ void Scene7::updateCutscene(sf::Time dt) {
     }
     case CutscenePart::FinalZoomOut: {
         setSubtitle(L"");
-        if (elapsedTime > 3.0f) {
-            m_currentPart = CutscenePart::FadeOut_FinalQuote;
-            m_partClock.restart();
-        }
+        // if (elapsedTime > 3.0f) { // Kept 3.0s pause
+            // m_currentPart = CutscenePart::FadeOut_FinalQuote;
+            // m_partClock.restart();
+            // m_voiceLine.setBuffer(m_soundBuffers[6]); // NEW: Play sound 7 (7.wav)
+            // m_voiceLine.play();
+            // setSubtitle(L"Ang Pag-ibig ay parang Palaro… minsan talo, pero laging masaya.", 28);
+        // }
+
+        m_currentPart = CutscenePart::FadeOut_FinalQuote;
+        m_partClock.restart();
+        m_voiceLine.setBuffer(m_soundBuffers[6]); // NEW: Play sound 7 (7.wav)
+        m_voiceLine.play();
+        setSubtitle(L"Ang Pag-ibig ay parang Palaro… minsan talo, pero laging masaya.", 28);
+
         break;
     }
-    case CutscenePart::FadeOut_FinalQuote: {
-        setSubtitle(L"Ang Pag-ibig ay parang Palaro… minsan talo, pero laging masaya.", 28);
-        m_fadeRect.setFillColor(sf::Color(0, 0, 0, static_cast<sf::Uint8>(std::min(255.f, (elapsedTime / 3.0f * 255)))));
-        if (elapsedTime > 5.0f) { // Hold the quote for 2s after fade
+    case CutscenePart::FadeOut_FinalQuote: { // Line 7 (7s)
+        if (elapsedTime > 7.0f) { // Updated from 5.0 to match 7s duration
+            m_fadeRect.setFillColor(sf::Color(0, 0, 0, static_cast<sf::Uint8>(std::min(255.f, (elapsedTime / 3.0f * 255)))));
+            m_voiceLine.stop(); // NEW
             m_currentPart = CutscenePart::CreditsRoll;
             m_creditsText.setPosition(w / 2.f, h + 100.f); // Reset credits position
             m_partClock.restart();
@@ -196,6 +234,7 @@ void Scene7::updateCutscene(sf::Time dt) {
         // When credits are done scrolling
         float creditsHeight = m_creditsText.getLocalBounds().height;
         if (m_creditsText.getPosition().y < -creditsHeight - 100.f) {
+            m_voiceLine.stop(); // NEW: Stop any lingering sound
             m_nextState = GameState::MainMenu; // Back to main menu
         }
         break;
@@ -223,7 +262,7 @@ void Scene7::draw(sf::RenderTarget& target) {
         target.draw(m_creditsText);
     }
     
-  
+ 
     if (m_subtitleText.getString() != L"") {
         target.draw(m_subtitleBackground);
         target.draw(m_subtitleText);
@@ -327,15 +366,15 @@ void Scene7::setupGraphics() {
     // --- Credits ---
     std::wstringstream ss;
     ss << L"Outdoor Quest: The YayaDub Rescue\n\n\n"
-       << L"Developed by Group 7:\n"
-       << L"Ralph Derrick Abaya\nPatrick Gengania\nMikhael Edman Gomez\nJames Emmanuel Dolfo\n\n"
-       << L"Course:\n"
-       << L"BS Computer Science – Computer Graphics Finals\n\n\n"
-       << L"Tools Used:\n"
-       << L"SFML 2.6.2\n"
-       << L"GLEW 2.1.0\n"
-       << L"C++17\n\n\n\n"
-       << L"Salamat sa Paglaro!";
+        << L"Developed by Group 7:\n"
+        << L"Ralph Derrick Abaya\nPatrick Gengania\nMikhael Edman Gomez\nJames Emmanuel Dolfo\n\n"
+        << L"Course:\n"
+        << L"BS Computer Science – Computer Graphics Finals\n\n\n"
+        << L"Tools Used:\n"
+        << L"SFML 2.6.2\n"
+        << L"GLEW 2.1.0\n"
+        << L"C++17\n\n\n\n"
+        << L"Salamat sa Paglaro!";
 
     m_creditsText.setFont(m_font);
     m_creditsText.setString(ss.str());

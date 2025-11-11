@@ -6,7 +6,7 @@
             "type": "shell",
             "command": "${workspaceFolder}/mingw64/bin/g++.exe",
             "args": [
-                "main.cpp",
+                "${workspaceFolder}/src/*.cpp",
                 "-std=c++17",
                 "-I", "${workspaceFolder}/SFML-2.6.2/include",
                 "-I", "${workspaceFolder}/glew-2.1.0/include",
@@ -14,9 +14,10 @@
                 "-L", "${workspaceFolder}/glew-2.1.0/lib/Release/x64",
                 "-o", "main-release.exe",
                 "-O2",
-                "-lsfml-graphics",
-                "-lsfml-window",
-                "-lsfml-system",
+                "-lsfml-graphics-d",
+                "-lsfml-window-d",
+                "-lsfml-system-d",
+                "-lsfml-audio-d",
                 "-lglew32",
                 "-lopengl32"
             ],
@@ -39,6 +40,7 @@
                 "-lsfml-graphics-d",
                 "-lsfml-window-d",
                 "-lsfml-system-d",
+                "-lsfml-audio-d",
                 "-lglew32",
                 "-lopengl32"
             ],

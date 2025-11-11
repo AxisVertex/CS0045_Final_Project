@@ -191,7 +191,6 @@ Scene6::Scene6(sf::RenderWindow& window) :
     m_subtitleBackground.setOrigin(m_subtitleBackground.getSize().x / 2.f, m_subtitleBackground.getSize().y / 2.f);
     m_subtitleBackground.setPosition(m_subtitleText.getPosition());
     m_subtitleBackground.setFillColor(sf::Color(0, 0, 0, 150));
-    // ------------------------------------------
 }
 
 void Scene6::handleInput(sf::Event& event) {
@@ -212,11 +211,11 @@ void Scene6::update(sf::Time dt) {
     float elapsed = dt.asSeconds();
 
     if (m_status == GameStatus::Starting) {
-        if (m_startTimer.getElapsedTime().asSeconds() > 2.0f) {
+        if (m_startTimer.getElapsedTime().asSeconds() > 4.0f) {
             m_subtitleText.setString(L""); // Clear subtitle
             m_subtitleBackground.setFillColor(sf::Color::Transparent); // Hide background
         }
-        if (m_startTimer.getElapsedTime().asSeconds() > 4.0f) { // 2s after subtitle disappears
+        if (m_startTimer.getElapsedTime().asSeconds() > 5.0f) { // 2s after subtitle disappears
             m_status = GameStatus::Playing;
             m_turnText.setString("Alden's Turn");
             m_gameTimer.restart();
