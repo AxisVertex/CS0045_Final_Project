@@ -61,7 +61,7 @@ private:
     sf::RectangleShape m_fadeRect;
     sf::Text m_creditsText; // For scrolling credits
 
-    // --- Sound Assets (NEW) ---
+    // --- Sound Assets ---
     std::array<sf::SoundBuffer, 7> m_soundBuffers;
     sf::Sound m_voiceLine;
 

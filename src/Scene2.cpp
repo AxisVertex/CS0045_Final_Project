@@ -2,7 +2,6 @@
 #include <cmath>    
 #include <cstdlib>   
 
-// We put the constructor code here
 Scene2::Scene2(sf::RenderWindow& window) :
     m_window(window),
     m_nextState(GameState::Scene2_TumbangPreso),
@@ -18,7 +17,6 @@ Scene2::Scene2(sf::RenderWindow& window) :
         std::cerr << "Could not load font 'arial.ttf'." << std::endl;
     }
 
-    // Set up fade rectangle (covers whole screen, starts transparent)
     m_fadeRect.setSize(sf::Vector2f(m_window.getSize()));
     m_fadeRect.setFillColor(sf::Color(0, 0, 0, 0));
 

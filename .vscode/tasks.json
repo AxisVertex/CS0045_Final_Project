@@ -19,7 +19,8 @@
                 "-lsfml-system-d",
                 "-lsfml-audio-d",
                 "-lglew32",
-                "-lopengl32"
+                "-lopengl32",
+                "-mwindows"
             ],
             "group": "build",
             "problemMatcher": ["$gcc"]
@@ -42,7 +43,8 @@
                 "-lsfml-system-d",
                 "-lsfml-audio-d",
                 "-lglew32",
-                "-lopengl32"
+                "-lopengl32",
+                "-mwindows"
             ],
             "group": {
                 "kind": "build",
